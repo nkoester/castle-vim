@@ -1,0 +1,4 @@
+[submodule "home/.vim"]
+	path = home/.vim
+	url = https://github.com/tpope/vim-pathogen.git
+	branch = master
