@@ -105,10 +105,10 @@ inoremap <F5> <Esc>:source $MYVIMRC<CR>:echo "sourced $MYVIMRC"<CR>a
 nnoremap <F5> :source $MYVIMRC<CR>:echo "sourced $MYVIMRC"<CR>
 
 " Because 'Shift+;' for a ':' sucks
-nnoremap ; :
-nnoremap : ;
-vnoremap ; :
-vnoremap : ;
+"nnoremap ; :
+"nnoremap : ;
+"vnoremap ; :
+"vnoremap : ;
 
 " Don't use Ex mode, use Q for formatting
 nnoremap Q gq
@@ -218,12 +218,12 @@ endif
 """""""""""""""""
 " colors etc.
 """""""""""""""""
-set background=dark
+"XX set background=dark
 "highlight OverLength ctermbg=234 ctermfg=white 
 "match OverLength /\%81v.\+/
 
 set colorcolumn=80          " print margin
-let &colorcolumn=join(range(81,999),",")
+"let &colorcolumn=join(range(81,999),",")
 highlight ColorColumn ctermbg=234
 "let &colorcolumn="80,".join(range(120,999),",")
 let &colorcolumn="80"
@@ -265,7 +265,22 @@ if has("spell")
 
 endif
 
-au BufNewFile,BufRead *.project set filetype=json
-au BufNewFile,BufRead *.distribution set filetype=json
+" remap stupid movement bindings
+noremap ; l
+noremap l k
+noremap k j
+noremap j h
 
+" pathogen setup
 execute pathogen#infect()
+syntax enable
+
+" color schema
+colorscheme jellybeans
+
+" better json
+au BufRead,BufNewFile,BufReadPost *.json set syntax=json
+au BufNewFile,BufRead,BufReadPost *.project set filetype=json
+au BufNewFile,BufRead,BufReadPost *.distribution set filetype=json
+let g:vim_json_syntax_conceal = 0
+
