@@ -259,8 +259,6 @@ if has("spell")
     highlight SpellRare cterm=bold ctermbg=166
     highlight clear SpellLocal
     highlight SpellLocal cterm=bold ctermbg=166
-
-
 endif
 
 " remap stupid movement bindings
@@ -277,8 +275,12 @@ Plug 'https://github.com/elzr/vim-json.git'
 
 "Plug 'https://github.com/altercation/vim-colors-solarized.git'
 Plug 'https://github.com/flazz/vim-colorschemes.git'
-
+Plug 'https://github.com/ervandew/supertab.git'
+Plug 'https://github.com/vim-scripts/SearchComplete.git'
+Plug 'https://github.com/easymotion/vim-easymotion.git'
 call plug#end()
+
+"map <S-Enter> <Plug>(easymotion-prefix)
 
 
 syntax enable
