@@ -11,8 +11,6 @@ endif
 " Must be first, because it changes other options as a side effect.
 set nocompatible
 
-" Set the color scheme
-colorscheme desert
 
 """""""""""""""""""""""""""""
 " Miscellaneous settings ...
@@ -272,7 +270,17 @@ noremap k j
 noremap j h
 
 " pathogen setup
-execute pathogen#infect()
+" execute pathogen#infect()
+call plug#begin('~/.vim/plugged')
+
+Plug 'https://github.com/elzr/vim-json.git'
+
+"Plug 'https://github.com/altercation/vim-colors-solarized.git'
+Plug 'https://github.com/flazz/vim-colorschemes.git'
+
+call plug#end()
+
+
 syntax enable
 
 " color schema
