@@ -67,7 +67,7 @@ set nolist
 """""""""""""""""""""""""""""
 " Tabbing, indentation etc.
 """""""""""""""""""""""""""""
-set smarttab        " make 'tab' insert indents instead 
+set smarttab        " make 'tab' insert indents instead
                     " of tabs at the beginning of a line
 set tabstop=4       " The width of a TAB is set to 4.
                     " Still it is a \t. It is just that
@@ -213,22 +213,6 @@ else
 
 endif
 
-"""""""""""""""""
-" colors etc.
-"""""""""""""""""
-"XX set background=dark
-"highlight OverLength ctermbg=234 ctermfg=white 
-"match OverLength /\%81v.\+/
-
-set colorcolumn=80          " print margin
-"let &colorcolumn=join(range(81,999),",")
-highlight ColorColumn ctermbg=234
-"let &colorcolumn="80,".join(range(120,999),",")
-let &colorcolumn="80"
-
-set cursorline
-highlight CursorLine term=NONE cterm=NONE ctermbg=237
-
 
 """""""""""""""
 " Spelling ...
@@ -261,6 +245,16 @@ if has("spell")
     highlight SpellLocal cterm=bold ctermbg=166
 endif
 
+" split movement
+nmap <c-Left> <c-w>h
+nmap <c-Down> <c-w>j
+nmap <c-Right> <c-w>l
+nmap <c-Up> <c-w>k
+
+" buffer movement
+map <a-Left> :bprevious<CR>
+map <a-Right> :bnext<CR>
+
 " remap stupid movement bindings
 noremap ; l
 noremap l k
@@ -271,22 +265,96 @@ noremap j h
 " execute pathogen#infect()
 call plug#begin('~/.vim/plugged')
 
-Plug 'https://github.com/elzr/vim-json.git'
+Plug 'https://github.com/elzr/vim-json.git', { 'for': ['json', 'distribution', 'project'] }
 
 "Plug 'https://github.com/altercation/vim-colors-solarized.git'
 Plug 'https://github.com/flazz/vim-colorschemes.git'
 Plug 'https://github.com/ervandew/supertab.git'
 Plug 'https://github.com/vim-scripts/SearchComplete.git'
 Plug 'https://github.com/easymotion/vim-easymotion.git'
+Plug 'https://github.com/tpope/vim-surround'
+
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+
+Plug 'https://github.com/vim-syntastic/syntastic'
+
+Plug 'bkad/CamelCaseMotion'
+
+Plug 'ntpeters/vim-better-whitespace'
+
+Plug 'nathanaelkane/vim-indent-guides'
+
+Plug 'tomtom/tcomment_vim'
+
+
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'https://github.com/tpope/vim-unimpaired.git'
+
+
 call plug#end()
 
 "map <S-Enter> <Plug>(easymotion-prefix)
 
+" airline settings
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#branch#enabled=1
+let g:airline#extensions#whitespace#checks=['indent', 'mixed-indent-file']
+
+
+"if !exists('g:airline_symbols')
+"  let g:airline_symbols = {}
+"endif
+"let g:airline_symbols.space = "\ua0"
+
+"the arrows are just stupid
+let g:airline_left_sep='▙'
+let g:airline_right_sep='▟'
+
+" does not work?
+"let g:airline#extensions#tabline#buffer_nr_show = 1
+"let g:airline#extensions#tabline#buffer_nr_format = '%s: '
+
+let g:airline_theme="badwolf"
+" avoid insert mode leave lag
+set ttimeoutlen=10
+" always show
+set laststatus=2
+" reduced from 4000
+set updatetime=250
+
+"CamelCaseMotion
+call camelcasemotion#CreateMotionMappings('<leader>')
+
+" indent-guides
+set ts=4 sw=4 et
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 4
+
+" vim-better-whitespace
+" trim on save
+autocmd BufWritePre * StripWhitespace
+
 
 syntax enable
 
-" color schema
+
+"""""""""""""""""
+" colors etc.
+"""""""""""""""""
 colorscheme jellybeans
+
+" margin
+set colorcolumn=80
+highlight ColorColumn ctermbg=237
+
+set cursorline
+highlight CursorLine term=NONE cterm=NONE ctermbg=237
+
+
 
 " better json
 au BufRead,BufNewFile,BufReadPost *.json set syntax=json
