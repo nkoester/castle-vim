@@ -277,6 +277,8 @@ Plug 'https://github.com/tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
+Plug 'https://github.com/tpope/vim-unimpaired.git'
+
 Plug 'https://github.com/vim-syntastic/syntastic'
 
 Plug 'bkad/CamelCaseMotion'
@@ -287,12 +289,14 @@ Plug 'nathanaelkane/vim-indent-guides'
 
 Plug 'tomtom/tcomment_vim'
 
+"Plug 'itspriddle/ZoomWin'
+Plug 'https://github.com/vim-scripts/zoomwintab.vim'
+
+"Plug 'valloric/youcompleteme'
+Plug 'davidhalter/jedi-vim'
 
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'https://github.com/tpope/vim-unimpaired.git'
-
-
 call plug#end()
 
 "map <S-Enter> <Plug>(easymotion-prefix)
@@ -334,6 +338,10 @@ set ts=4 sw=4 et
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 4
 
+map <F3> <Esc>\ig<CR>:echo "Indent Guides toggle"<CR>
+
+
+
 " vim-better-whitespace
 " trim on save
 autocmd BufWritePre * StripWhitespace
@@ -347,13 +355,20 @@ syntax enable
 """""""""""""""""
 colorscheme jellybeans
 
-" margin
-set colorcolumn=80
-highlight ColorColumn ctermbg=237
-
+"row
 set cursorline
 highlight CursorLine term=NONE cterm=NONE ctermbg=237
 
+"margin
+set colorcolumn=80
+highlight ColorColumn ctermbg=237
+
+"visual
+hi Visual term=reverse cterm=reverse guibg=Grey
+
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
 
 
 " better json
