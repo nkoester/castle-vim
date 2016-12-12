@@ -366,10 +366,13 @@ highlight ColorColumn ctermbg=237
 "visual
 hi Visual term=reverse cterm=reverse guibg=Grey
 
+"set the cursor shape depending on the mode
 let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
 
+"reset cursor on exit
+autocmd VimLeave * let &t_me="\<Esc>[6 q"
 
 " better json
 au BufRead,BufNewFile,BufReadPost *.json set syntax=json
