@@ -1,5 +1,5 @@
 """""""""""""""""""""""""""""""""""""
-" nkoester, 060602015 - intial vimrc
+" nkoester, 06062015 - intial vimrc
 """""""""""""""""""""""""""""""""""""
 
 " When started as "evim", evim.vim will already have done these settings.
@@ -171,8 +171,17 @@ function! ToggleVExplorer()
 endfunction
 nnoremap <silent> <C-E> :call ToggleVExplorer()<CR>
 
-" Hit enter in the file browser to open the selected
-" file with :vsplit to the right of the browser.
+" mode for wrapping text in the file
+function! TextMode()
+    :set formatoptions=tc
+    :set fo+=a
+    :set textwidth=80
+endfunction
+
+command! SetTextMode call TextMode()
+
+" Hit enter in the file browser to open the selected file with :vsplit to the
+" right of the browser.
 let g:netrw_altv = 1
 let g:netrw_winsize = -28              " absolute width of netrw window
 "let g:netrw_banner = 0                " do not display info on the top of window
@@ -297,6 +306,10 @@ Plug 'davidhalter/jedi-vim'
 
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+
+Plug 'junegunn/goyo.vim'
+
 call plug#end()
 
 "map <S-Enter> <Plug>(easymotion-prefix)
@@ -340,12 +353,27 @@ let g:indent_guides_guide_size = 4
 
 map <F3> <Esc>\ig<CR>:echo "Indent Guides toggle"<CR>
 
-
-
 " vim-better-whitespace
 " trim on save
 autocmd BufWritePre * StripWhitespace
 
+" Goyo config
+let g:goyo_linenr=1
+let g:goyo_height= '90%'
+let g:goyo_width = 100
+
+noremap <silent> <Leader>cm :exe ColumnMode()<CR>
+function! ColumnMode()
+  exe "norm \<C-u>"
+  let @z=&so
+  set noscb so=0
+  bo vs
+  exe "norm \<PageDown>"
+  setl scrollbind
+  wincmd p
+  setl scrollbind
+  let &so=@z
+endfunction
 
 syntax enable
 
